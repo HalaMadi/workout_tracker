@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../connection";
+import { sequelize } from "../connection.js";
 
 
 const UserModel = sequelize.define('User', {
@@ -21,7 +21,7 @@ const UserModel = sequelize.define('User', {
     },
     role:{
         type:DataTypes.ENUM('user','admin'),
-        defaultValue:false,
+        defaultValue:'user',
         allowNull:false
     }
 })
