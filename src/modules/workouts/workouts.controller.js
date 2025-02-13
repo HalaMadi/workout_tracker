@@ -15,7 +15,7 @@ export const getWorkoutById = async (req, res) => {
     const { id } = req.params;
     const workout = await WorkoutModel.findByPk(id);
     if (!workout) {
-        return res.status(404).json({ message: 'Workout not found' });
+        return next(new AppError('Workout not found', 404))
     }
     return res.status(200).json({ message: 'Workout retrieved successfully', workout });
 };
@@ -25,7 +25,7 @@ export const updateWorkoutById = async (req, res) => {
     const { name, description, duration, intensity } = req.body;
     const workout = await WorkoutModel.findByPk(id);
     if (!workout) {
-        return res.status(404).json({ message: 'Workout not found' });
+        return next(new AppError('Workout not found', 404))
     }
     await workout.update({ name, description, duration, intensity });
     return res.status(200).json({ message: 'Workout updated successfully', workout });
@@ -35,7 +35,7 @@ export const deleteWorkoutById = async (req, res) => {
     const { id } = req.params;
     const workout = await WorkoutModel.findByPk(id);
     if (!workout) {
-        return res.status(404).json({ message: 'Workout not found' });
+        return next(new AppError('Workout not found', 404))
     }
     await workout.destroy();
     return res.status(200).json({ message: 'Workout deleted successfully' });

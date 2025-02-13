@@ -8,6 +8,9 @@ const initApp = (app, express) => {
     app.use('/users', userRouter)
     app.use('/workouts', workoutRouter)
     app.use('/auth', authRouter)
+    app.use((error,req,res,next)=>{
+        return res.status(400).json({message:error.message})
+    })
 }
 
 export default initApp
