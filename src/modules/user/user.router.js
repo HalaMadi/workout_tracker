@@ -1,14 +1,13 @@
 import { Router } from "express";
-import UserModel from "../../../DB/model/user.js";
-
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { deleteUser, getUserProfile, updateUser } from "./user.controller.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    const user = await UserModel.findAll({
-        attributes: ['name', 'email']
-    })
-    return res.status(200).json({ message: 'Success', user })
-})
+router.get('/', asyncHandler(getUserProfile))
+
+router.put('/', asyncHandler(updateUser))
+
+router.delete('/:id', asyncHandler(deleteUser))
 
 export default router
